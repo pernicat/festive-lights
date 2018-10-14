@@ -27,7 +27,7 @@ def pumpkinSpice(strip, color_a, color_b, wait_ms=200, iterations=20):
                 else:
                     strip.setPixelColor(j, color_b)
             strip.show()
-            tim.sleep(wait_ms/1000.0)
+            time.sleep(wait_ms/1000.0)
 
 
 # Define functions which animate LEDs in various ways.
