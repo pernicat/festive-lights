@@ -6,3 +6,22 @@ Uses [rpi_ws281x example script](https://github.com/jgarff/rpi_ws281x/blob/maste
 For use on a raspberry PI with the [https://github.com/jgarff/rpi_ws281x] (rpi_ws281x) library installed
 
 See the [Adafruit NeoPixels on RAspberry Pi Guide](https://learn.adafruit.com/neopixels-on-raspberry-pi/overview) for wiring.
+
+## tmux
+
+### Create
+
+```sh
+tmux new -s festive-lights
+sudo python festive.py -c
+```
+
+### Detach
+
+`ctrl`+`b` `d`
+
+### Attach
+
+```
+tmux a -t [name of session]
+```
