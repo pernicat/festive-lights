@@ -17,15 +17,15 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
-def pumpkinSpice(strip, color_a, color_b, wait_ms=200, iterations=20):
+def pumpkinSpice(strip, fg, bg, wait_ms=300, iterations=20, width=10):
     """Orange with wipping green"""
     for _ in range(iterations):
-        for i in range(1, 3):
+        for i in range(width):
             for j in range(strip.numPixels()):
-                if 0 == j%i:
-                    strip.setPixelColor(j, color_a)
+                if 0 == (j+i)%width:
+                    strip.setPixelColor(j, fg)
                 else:
-                    strip.setPixelColor(j, color_b)
+                    strip.setPixelColor(j, bg)
             strip.show()
             time.sleep(wait_ms/1000.0)
 
@@ -87,6 +87,26 @@ def theaterChaseRainbow(strip, wait_ms=50):
             for i in range(0, strip.numPixels(), 3):
                 strip.setPixelColor(i+q, 0)
 
+def nightRider(strip, fg, bg, wait_ms=10, width=30, iterations=10):
+    """1980s AI"""
+    for j in range(iterations):
+        for i in range(strip.numPixels() - width):
+            for q in range(strip.numPixels()):
+                if i < q < i+width:
+                    strip.setPixelColor(q, fg)
+                else:
+                    strip.setPixelColor(q, bg)
+            strip.show()
+            time.sleep(wait_ms/1000.0)
+        for i in range(strip.numPixels() - width, 0, -1):
+            for q in range(strip.numPixels()):
+                if i < q < i+width:
+                    strip.setPixelColor(q, fg)
+                else:
+                    strip.setPixelColor(q, bg)
+            strip.show()
+            time.sleep(wait_ms/1000.0)
+
 # Main program logic follows:
 if __name__ == '__main__':
     # Process arguments
@@ -119,9 +139,13 @@ if __name__ == '__main__':
             # rainbowCycle(strip)
             # theaterChaseRainbow(strip)
             print ('Pumpkin Spice')
-            pumpkinSpice(strip, Color(255,140,0), Color(0,255,0))
-            print ('Red Color Wipe')
-            colorWipe(strip, Color(255, 0, 0), 100)  # Red wipe
+            pumpkinSpice(strip, Color(0, 128, 128), Color(20, 150, 00))
+            # print ('Red Color Wipe')
+            # colorWipe(strip, Color(255, 0, 0), 100)  # Red wipe
+            # print ('Rainbow Slow')
+            # rainbowCycle(strip, 100, 20)
+            # print ('Night Rider')
+            # nightRider(strip, Color(0, 255, 0), Color(0, 0, 0))
 
     except KeyboardInterrupt:
         if args.clear:
