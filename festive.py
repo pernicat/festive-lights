@@ -19,7 +19,7 @@ LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
 def pumpkinSpice(strip, color_a, color_b, wait_ms=200, iterations=20):
     """Orange with wipping green"""
-    for _ in range(iterations)
+    for _ in range(iterations):
         for i in range(3):
             for j in range(strip.numPixels()):
                 if 0 == j%i:
