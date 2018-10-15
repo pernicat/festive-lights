@@ -6,6 +6,7 @@
 import time
 from neopixel import *
 import argparse
+# from colorsys import *
 
 # LED strip configuration:
 LED_COUNT      = 150     # Number of LED pixels.
