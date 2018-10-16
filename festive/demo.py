@@ -1,4 +1,4 @@
-from color import RGB
+from color import Color
 
 class Pixel:
 	def __init__(self, num):
@@ -26,7 +26,7 @@ class Pixel:
 
 		print(output)
 
-	def setPixelColor(self, n, color):
+	def setPixelColor(self, n: int, color: int):
 		"""Set LED at position n to the provided 24-bit color value (in RGB order).
 		"""
 		self._led_data[n] = color
@@ -69,8 +69,8 @@ class Pixel:
 if __name__ == '__main__':
 	pixel = Pixel(16)
 	pixel.begin()
-	pixel.setPixelColor(0, int(RGB(1.0, 1.0, 1.0)))
-	pixel.setPixelColor(1, int(RGB(1.0, 0.0, 0.0)))
-	pixel.setPixelColor(2, int(RGB(0.0, 1.0, 0.0)))
-	pixel.setPixelColor(3, int(RGB(0.0, 0.0, 1.0)))
+	pixel.setPixelColor(0, int(Color(1.0, 1.0, 1.0)))
+	pixel.setPixelColor(1, int(Color(1.0, 0.0, 0.0)))
+	pixel.setPixelColor(2, int(Color(0.0, 1.0, 0.0)))
+	pixel.setPixelColor(3, int(Color(0.0, 0.0, 1.0)))
 	pixel.show()
