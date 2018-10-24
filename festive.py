@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 # @see https://github.com/jgarff/rpi_ws281x/blob/master/python/examples/strandtest.py
-# Direct port of the Arduino NeoPixel library strandtest example.  Showcases
+# Direct port of the Arduino MyPixel library strandtest example.  Showcases
 # various animations on a strip of NeoPixels.
 
 import time
 from neopixel import *
 import argparse
-from festive.display.neopixel import NeoPixel
+from festive.display.mypixel import MyPixel
 from festive.seasons import Halloween
 
 # LED strip configuration:
@@ -118,8 +118,8 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
     args = parser.parse_args()
 
-    # Create NeoPixel object with appropriate configuration.
-    strip = NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
+    # Create MyPixel object with appropriate configuration.
+    strip = MyPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     # Intialize the library (must be called once before other functions).
     strip.begin()
 
