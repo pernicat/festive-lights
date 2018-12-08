@@ -1,0 +1,71 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "8f69c4d4818c10be0d906ea5bce1db699640b5a343f1626fbd2d29f947eb4630"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.5"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "adafruit-blinka": {
+            "hashes": [
+                "sha256:841fec719cd2a6ce6c936cbe8066c1ead449d2844b2212b0f1525e49251f5d0d"
+            ],
+            "index": "pypi",
+            "version": "==0.4.0"
+        },
+        "adafruit-circuitpython-neopixel": {
+            "hashes": [
+                "sha256:30a02c309e8ef851395e6aa75987062d8919e10a9a51c25ac3b266f6f64ddb61"
+            ],
+            "index": "pypi",
+            "version": "==3.3.4"
+        },
+        "adafruit-gpio": {
+            "hashes": [
+                "sha256:d6465b92c866c51ca8f3bc1e8f2ec36f5ccdb46d0fd54101c1109756d4a2dcd0"
+            ],
+            "version": "==1.0.3"
+        },
+        "adafruit-pureio": {
+            "hashes": [
+                "sha256:e65cd929f1d8e109513ed1e457c2742bf4f15349c1a9b7f5b1e04191624d7488"
+            ],
+            "version": "==0.2.3"
+        },
+        "python-dotenv": {
+            "hashes": [
+                "sha256:4f3582904d08dac5ab4c9aa44cb17ce056c9a35e585cfda6183d80054d247307",
+                "sha256:cb8cd327109898c7725f76c5256a081e8a9efe72ebbf127f8d1221ceb7f38bf2"
+            ],
+            "index": "pypi",
+            "version": "==0.10.0"
+        },
+        "rpi-ws281x": {
+            "hashes": [
+                "sha256:303bde432a46079cbb1af9544c565b21acbf8dba5723de8b73b36504f838a375",
+                "sha256:82b84afb7f06a9e1d85d9597edbd83a48f250e4fae7e67b66c856bea3567ae9e",
+                "sha256:b5e368c46f83b01e0451d9715a6085b537207010a4676591a34a788860ff16b0",
+                "sha256:dc1309a30b2ec9644e243fa6ddb360b292952a9d288ed5f36b65225a3043000b"
+            ],
+            "index": "pypi",
+            "version": "==4.1.0"
+        },
+        "spidev": {
+            "hashes": [
+                "sha256:09d2b5122f0dd79910713a11f9a0020f71537224bf829916def4fffc0ea59456"
+            ],
+            "version": "==3.2"
+        }
+    },
+    "develop": {}
+}

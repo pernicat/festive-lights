@@ -7,7 +7,7 @@ import time
 from neopixel import *
 import argparse
 from festive.display.mypixel import MyPixel
-from festive.seasons import Halloween
+from festive.seasons import Halloween 
 
 # LED strip configuration:
 LED_COUNT      = 150     # Number of LED pixels.
