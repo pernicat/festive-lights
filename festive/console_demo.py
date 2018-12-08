@@ -54,6 +54,9 @@ class ConsoleDemo:
                 time.sleep(2)
         """
 
+    def __delitem__(self, i: int) -> None:
+        pass
+
     def __init__(self, _, n, *, bpp=3, brightness=1.0, auto_write=True, pixel_order=None):
         # self.pin = digitalio.DigitalInOut(pin)
         # self.pin.direction = digitalio.Direction.OUTPUT
