@@ -1,19 +1,30 @@
-# import time
+import os
+from festive.console_demo import ConsoleDemo
 
-# from festive.pixel import Pixel
-from festive.color import purple, orange, red
-from festive.seasons import Halloween
+LED_COUNT = int(os.getenv('LED_COUNT', 150))
 
-from festive.scene import NightRider, Scroll, Growth
-from festive.display.console import console
+pixels = ConsoleDemo(None, LED_COUNT)
+pixels.show()
+pixels.fill((0, 255, 0))
+print('')
 
-LED_COUNT = 150
 
-halloween = Halloween(LED_COUNT)
-
-if __name__ == '__main__':
-
-	for scene in halloween:
-		scene(console)
-
-	print("")
+# # import time
+#
+# # from festive.pixel import Pixel
+# from festive.color import purple, orange, red
+# from festive.seasons import Halloween
+#
+# from festive.scene import NightRider, Scroll, Growth
+# from festive.display.console import console
+#
+# LED_COUNT = 150
+#
+# halloween = Halloween(LED_COUNT)
+#
+# if __name__ == '__main__':
+#
+# 	for scene in halloween:
+# 		scene(console)
+#
+# 	print("")
