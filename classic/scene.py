@@ -8,6 +8,7 @@ from festive.color import black, red
 Colors = List[Color]
 Display = Callable[[Colors], Any]
 
+
 class NightRider:
 	def __init__(self, length: int, pattern: Colors, bg=black, wait=0.01, width=30, iterations=10):
 		self.length = length
@@ -36,6 +37,7 @@ class NightRider:
 			self._right(display)
 			self._left(display)
 
+
 class Scroll:
 	def __init__(self, length: int, pattern: Colors, step=1, wait=0.5, iterations=10):
 		self.length = length
@@ -61,6 +63,7 @@ class Scroll:
 	def __call__(self, display: Display):
 		for _ in range(self.iterations):
 			self._scroll(display)
+
 
 class Growth:
 	def __init__(self, length: int, fg=red, bg=black, wait=0.5, growths=1):
@@ -92,6 +95,7 @@ class Growth:
 			for _ in range(self.growths):
 				self._grow(display)
 
+
 class Dance:
 	def __init__(self, length: int, dance: List[Colors], bg=black, dancers=2, wait=0.3, iterations=4):
 		self.length = length
@@ -107,7 +111,6 @@ class Dance:
 		right_padding = size - len(pattern) - left_padding
 		cell = [self.bg]*left_padding + pattern + [self.bg]*right_padding
 		return cell
-
 
 	def _move(self, pattern: Colors, display: Display):
 		# print(pattern)
