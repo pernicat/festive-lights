@@ -10,35 +10,6 @@ Display = Callable[[Colors], Any]
 
 
 
-
-
-class Scroll:
-	def __init__(self, length: int, pattern: Colors, step=1, wait=0.5, iterations=10):
-		self.length = length
-		self.pattern = pattern
-		self.step = step
-		self.wait = wait
-		self.iterations = iterations
-
-	def _scroll(self, display: Display):
-		remander = self.pattern * (self.length // len(self.pattern) + 1) 
-
-		if self.step > 0:
-			r = range(0, len(self.pattern), self.step)
-		else:
-			r = range(len(self.pattern), 0, self.step)
-
-		for l in r:
-			colors = self.pattern[l:] + remander
-
-			display(colors[:self.length])
-			time.sleep(self.wait)
-
-	def __call__(self, display: Display):
-		for _ in range(self.iterations):
-			self._scroll(display)
-
-
 class Growth:
 	def __init__(self, length: int, fg=red, bg=black, wait=0.5, growths=1):
 		self.fg = fg

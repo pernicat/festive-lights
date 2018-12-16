@@ -2,10 +2,13 @@
 
 import math
 import time
-from typing import Iterable
+import random
+from typing import Iterable, Iterator, Generator, Callable
 from festive.patterns import Pattern
-from festive.colors import BLACK
+from festive.colors import Color, BLACK, WHITE
 
+
+ColorGenerator = Generator[Color, None, None]
 
 DELAY = 0.5
 ITERATIONS = 30
@@ -72,3 +75,60 @@ def swipe(pixels, pattern: Pattern, background=BLACK, delay=0.01, iterations=10)
     for _ in range(iterations):
         swipe_right(pixels, pattern, background, delay)
         swipe_left(pixels, pattern, background, delay)
+
+
+def _channel_transition(a: int, b: int, count: int) -> Generator[int, None, None]:
+    step = (b - a) / count
+    for i in range(count):
+        yield int(a + step*i)
+    yield b
+
+
+def _color_transition(start: Color, end: Color, count: int):
+    generators = [_channel_transition(a, b, count) for a, b in zip(start, end)]
+    return zip(*generators)
+
+
+def _multi_transition(pattern: Pattern, count: int) -> ColorGenerator:
+    for a, b in zip(pattern[:-1], pattern[1:]):
+        for color in _color_transition(a, b, count):
+            yield color
+
+
+def transition_builder(pattern: Pattern, count: int) -> Callable[[], ColorGenerator]:
+    """returns a function to build new generators"""
+    def func() -> ColorGenerator:
+        """internal function"""
+        return _multi_transition(pattern, count)
+    return func
+
+
+def fade(pixels, pattern: Pattern, delay=0.1):
+    """fades all the colors from start to end"""
+    for color in _multi_transition(pattern, 100):
+        pixels.fill(color)
+        pixels.show()
+        time.sleep(delay)
+
+
+def _iterate_pixels(pixels, iterators: Iterable[Iterator[Color]]):
+    for key, value in enumerate(iterators):
+        try:
+            pixels[key] = next(value)
+        except StopIteration:
+            pass
+
+
+def twinkle(pixels, foreground=WHITE, background=BLACK, delay=0.05, iterations=1000):
+    """picks random points and brightens and darkens them"""
+    builder = transition_builder([background, foreground, background], 100)
+
+    iterators = [iter([background]) for _ in pixels]
+
+    for i in range(iterations):
+        if i % 10 == 0:
+            spark = random.randint(0, len(pixels) - 1)
+            iterators[spark] = builder()
+        _iterate_pixels(pixels, iterators)
+        pixels.show()
+        time.sleep(delay)
