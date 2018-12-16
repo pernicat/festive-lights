@@ -1,3 +1,5 @@
+"""Console Demo class based on NeoPixel class"""
+
 import sys
 import math
 
@@ -189,8 +191,10 @@ class ConsoleDemo:
         self.show()
 
     def show(self):
+        """displays the lights on the console"""
         output = ""
         for pixel in self:
-            output += "\033[48;2;%d;%d;%dm \033[0m" % tuple([int(i * self.brightness) for i in pixel][:3])
+            args = tuple(int(i * self.brightness) for i in pixel)[:3]
+            output += "\033[48;2;%d;%d;%dm \033[0m" % args
 
         sys.stdout.write("\r" + output)

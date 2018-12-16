@@ -1,7 +1,10 @@
+"""seasonal functions"""
+
 from festive import tools
 from festive import patterns
 
 
 def christmas(pixels):
-    tools.scroll(pixels, patterns.christmas_multicolor)
-    tools.scroll(pixels, patterns.winter, step=-1)
+    """christmas patters"""
+    tools.scroll(pixels, patterns.XMAS_MULTI)
+    tools.scroll(pixels, patterns.ICICLE, step=-1)

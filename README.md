@@ -15,7 +15,7 @@ sudo pipfor wiring.
 
 ```sh
 tmux new -s festive-lights
-sudo python festive.py -c
+sudo python run.py -c
 ```
 
 ### Detach

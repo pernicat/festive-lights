@@ -1,3 +1,5 @@
+"""functions for manipulating color patterns"""
+
 from typing import List, Tuple
 import math
 import time
@@ -8,6 +10,7 @@ ITERATIONS = 30
 
 
 def pattern_repeater(pixels, pattern: Pattern):
+    """repeats a pattern accross the lights"""
     multiplier = int(math.ceil(len(pixels) / len(pattern)))
 
     new = (pattern * multiplier)[:len(pixels)]
@@ -22,14 +25,15 @@ def scroll(pixels,
            delay: float = DELAY,
            iterations: int = ITERATIONS,
            step: int = 1):
+    """repeats a pattern and scrolls it across the lights"""
 
     if step > 0:
-        r = range(0, len(pattern), step)
+        shift_range = range(0, len(pattern), step)
     else:
-        r = range(len(pattern), 0, step)
+        shift_range = range(len(pattern), 0, step)
 
     for _ in range(iterations):
-        for l in r:
-            result = pattern[l:] + pattern[0:l]
+        for shift in shift_range:
+            result = pattern[shift:] + pattern[0:shift]
             pattern_repeater(pixels, result)
             time.sleep(delay)

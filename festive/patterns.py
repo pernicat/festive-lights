@@ -1,5 +1,9 @@
-from festive.colors import red, yellow, blue, orange, green, white
+"""Color pattern constants"""
+
+from festive.colors import RED, YELLOW, BLUE, ORANGE, GREEN, WHITE
 
 
-christmas_multicolor = [red, yellow, blue, orange, green]
-winter = [blue, white, white, white, white]
+XMAS_MULTI = [RED, YELLOW, BLUE, ORANGE, GREEN]
+"""red, yellow, blue, orange, green"""
+ICICLE = [BLUE] + [WHITE]*4
+"""blue, white*4"""

@@ -1,15 +1,17 @@
-black = (0, 0, 0)
-white = (255, 255, 255)
+"""Color constants"""
 
-red = (255, 0, 0)
-green = (0, 255, 0)
-blue = (0, 0, 255)
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
 
-yellow = (255, 255, 0)
-cyan = (0, 255, 255)
-magenta = (255, 0, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
 
-orange = (255, 127, 0)
-purple = (127, 0, 127)
+YELLOW = (255, 255, 0)
+CYAN = (0, 255, 255)
+MAGENTA = (255, 0, 255)
 
-indigo = (68, 0, 255)
+ORANGE = (255, 127, 0)
+PURPLE = (127, 0, 127)
+
+INDIGO = (68, 0, 255)
