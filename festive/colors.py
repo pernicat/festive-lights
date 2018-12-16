@@ -1,5 +1,9 @@
 """Color constants"""
 
+from typing import Tuple
+
+Color = Tuple[int, int, int]
+
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 

@@ -1,10 +1,12 @@
 """functions for manipulating color patterns"""
 
-from typing import List, Tuple
 import math
 import time
+from typing import Iterable
+from festive.patterns import Pattern
+from festive.colors import BLACK
 
-Pattern = List[Tuple[int]]
+
 DELAY = 0.5
 ITERATIONS = 30
 
@@ -37,3 +39,36 @@ def scroll(pixels,
             result = pattern[shift:] + pattern[0:shift]
             pattern_repeater(pixels, result)
             time.sleep(delay)
+
+
+def fill_at(pixels, position: int, pattern: Pattern = None, background=BLACK):
+    """puts a pattern at a specific position"""
+    if pattern:
+        pixels.fill(background)
+    for key, value in enumerate(pattern):
+        pixels[position + key] = value
+
+
+def _swipe_gen(pixels, pattern: Pattern, iterator: Iterable[int], background=BLACK, delay=0.01):
+    for i in iterator:
+        pixels.fill(background)
+        fill_at(pixels, i, pattern, background)
+        pixels.show()
+        time.sleep(delay)
+
+
+def swipe_right(pixels, pattern: Pattern, background=BLACK, delay=0.01):
+    """moves all the pixels to the right"""
+    _swipe_gen(pixels, pattern, range(len(pixels) - len(pattern)), background, delay)
+
+
+def swipe_left(pixels, pattern: Pattern, background=BLACK, delay=0.01):
+    """moves all the pixels to the left"""
+    _swipe_gen(pixels, pattern, range(len(pixels) - len(pattern), 0, -1), background, delay)
+
+
+def swipe(pixels, pattern: Pattern, background=BLACK, delay=0.01, iterations=10):
+    """moves all the pixels back and forth"""
+    for _ in range(iterations):
+        swipe_right(pixels, pattern, background, delay)
+        swipe_left(pixels, pattern, background, delay)

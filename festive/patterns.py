@@ -1,7 +1,10 @@
 """Color pattern constants"""
 
-from festive.colors import RED, YELLOW, BLUE, ORANGE, GREEN, WHITE
+from typing import List
 
+from festive.colors import Color, RED, YELLOW, BLUE, ORANGE, GREEN, WHITE
+
+Pattern = List[Color]
 
 XMAS_MULTI = [RED, YELLOW, BLUE, ORANGE, GREEN]
 """red, yellow, blue, orange, green"""

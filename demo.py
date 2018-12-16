@@ -11,7 +11,8 @@ LED_COUNT = int(os.getenv('LED_COUNT', '150'))
 def main():
     """Main function to run demo"""
     pixels = ConsoleDemo(None, LED_COUNT, auto_write=False)
-    seasons.christmas(pixels)
+    # seasons.christmas(pixels)
+    seasons.test(pixels)
     print('')
 
 

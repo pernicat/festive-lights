@@ -9,33 +9,7 @@ Colors = List[Color]
 Display = Callable[[Colors], Any]
 
 
-class NightRider:
-	def __init__(self, length: int, pattern: Colors, bg=black, wait=0.01, width=30, iterations=10):
-		self.length = length
-		self.pattern = pattern
-		self.bg = bg
-		self.wait = wait
-		self.iterations = iterations
 
-	def _pos_to_list(self, index: int) -> Colors:
-		pre = [self.bg] * index
-		post = [self.bg] * (self.length - len(self.pattern) - index)
-		return pre + self.pattern + post
-	
-	def _right(self, display: Display):
-		for i in range(self.length - len(self.pattern)):
-			display(self._pos_to_list(i))
-			time.sleep(self.wait)
-
-	def _left(self, display: Display):
-		for i in range(self.length - len(self.pattern), 0, -1):
-			display(self._pos_to_list(i))
-			time.sleep(self.wait)
-
-	def __call__(self, display: Display):
-		for _ in range(self.iterations):
-			self._right(display)
-			self._left(display)
 
 
 class Scroll:
