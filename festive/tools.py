@@ -5,10 +5,10 @@ import time
 import random
 from typing import Iterable, Iterator, Generator, Callable
 from festive.patterns import Pattern
-from festive.colors import Color, BLACK, WHITE
+from festive.colors import HEX, BLACK, WHITE
 
 
-ColorGenerator = Generator[Color, None, None]
+ColorGenerator = Generator[HEX, None, None]
 
 DELAY = 0.5
 ITERATIONS = 30
@@ -84,7 +84,7 @@ def _channel_transition(a: int, b: int, count: int) -> Generator[int, None, None
     yield b
 
 
-def _color_transition(start: Color, end: Color, count: int):
+def _color_transition(start: HEX, end: HEX, count: int):
     generators = [_channel_transition(a, b, count) for a, b in zip(start, end)]
     return zip(*generators)
 
@@ -111,7 +111,7 @@ def fade(pixels, pattern: Pattern, delay=0.1):
         time.sleep(delay)
 
 
-def _iterate_pixels(pixels, iterators: Iterable[Iterator[Color]]):
+def _iterate_pixels(pixels, iterators: Iterable[Iterator[HEX]]):
     for key, value in enumerate(iterators):
         try:
             pixels[key] = next(value)

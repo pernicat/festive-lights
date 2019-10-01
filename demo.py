@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 """Runs a demo of the LEDs on the command line"""
 
-import os
+from festive.festive import demo, runner
 from festive.console_demo import ConsoleDemo
-from festive import seasons
 
-LED_COUNT = int(os.getenv('LED_COUNT', '150'))
+from config import Config
 
 
 def main():
     """Main function to run demo"""
-    pixels = ConsoleDemo(None, LED_COUNT, auto_write=False)
+    pixels = ConsoleDemo(None, Config.LED_COUNT, auto_write=False)
     # seasons.test(pixels)
-    seasons.christmas(pixels)
+    # seasons.christmas(pixels)
+
+    runner(pixels, demo)
+
     print('')
 
 
