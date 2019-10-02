@@ -15,19 +15,26 @@ class Direction(Enum):
     RIGHT = -1
 
 
-def scroll(pattern: List[HEX], direction: Direction = Direction.LEFT) -> Iterable[List[HEX]]:
+def rotate_pattern(pattern: List[HEX], direction: Direction = Direction.LEFT) -> Iterable[List[HEX]]:
     while True:
         for i in range(len(pattern)):
             offset = direction.value * i
             yield pattern[offset:] + pattern[:offset]
 
 
-def scroll_cycle(
+def scroll(
         pattern: List[HEX],
         duration: timedelta,
         direction: Direction = Direction.LEFT
 ) -> Iterable[Iterable[HEX]]:
-    return show_duration(cycle_patterns(scroll(pattern, direction)), duration)
+    """
+    Repeats the pattern and limits the duration of a scroll
+    :param pattern:
+    :param duration:
+    :param direction:
+    :return:
+    """
+    return show_duration(cycle_patterns(rotate_pattern(pattern, direction)), duration)
 
 
 def pan(
@@ -35,6 +42,13 @@ def pan(
         background: List[HEX] = None,
         direction: Direction = Direction.LEFT
 ) -> Iterable[List[HEX]]:
+    """
+    Pan's the pattern from one side of the strip to the other
+    :param pattern:
+    :param background:
+    :param direction:
+    :return:
+    """
     if not pattern:
         raise Exception("pattern can not be empty")
     if not background:
@@ -53,6 +67,12 @@ def oscillating_pan(
         pattern: List[HEX],
         background: List[HEX] = None
 ) -> Iterable[List[HEX]]:
+    """
+    Knight Ryder effect
+    :param pattern:
+    :param background:
+    :return:
+    """
     return cycle(chain(
         pan(pattern, background, Direction.LEFT),
         pan(pattern, background, Direction.RIGHT)))
