@@ -1,16 +1,19 @@
 from itertools import chain
 from datetime import timedelta
+from typing import List
 
 from festive.timing import limit, show_duration
 from festive.transitions import transition, chain_fill_transitions
 from festive.effects import scroll, Direction, oscillating_pan
 
-from festive.patterns import SPOOKY1
-from festive.colors import RED
+from festive.patterns import SPOOKY1, SPOOKY2, spacing, widen
+from festive.colors import RED, HEX
+
+SCROLL_INTERVAL = timedelta(seconds=0.3)
 
 # SHOW_DURATION = timedelta(seconds=10)
 # REFRESH_RATE = timedelta(seconds=0.02)
-# SLOW_INTERVAL = timedelta(seconds=0.5)
+#
 # COLOR_WHEEL = color_wheel()
 #
 # demo = limit(chain(
@@ -23,6 +26,12 @@ from festive.colors import RED
 
 
 def halloween(scene_duration: timedelta):
+    def limit_scroll(colors: List[HEX]):
+        return limit(scroll(colors, scene_duration), SCROLL_INTERVAL)
+
     return chain(
-        chain_fill_transitions(SPOOKY1, scene_duration)
+        limit_scroll(spacing(SPOOKY2, 4)),
+        limit_scroll(widen(SPOOKY2, 8)),
+        limit_scroll(SPOOKY2),
+        chain_fill_transitions(SPOOKY1, scene_duration),
     )
