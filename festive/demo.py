@@ -1,20 +1,20 @@
 from itertools import chain
 from datetime import timedelta
 
-from .timing import limit, run_time
+from .timing import limit, show_duration
 from .transitions import transition
-from .effect import scroll_right, scroll_left
-from .patterns import RAINBOW, color_wheel, fill
-from .colors import BLACK
+from .effect import scroll_cycle, Direction, oscillating_pan
+from .patterns import RAINBOW, color_wheel, BACKGROUND
+from .colors import RED
 
-BACKGROUND = fill(BLACK)
-
-DEMO_INTERVAL = timedelta(seconds=10)
-STEP_INTERVAL = timedelta(seconds=0.1)
+SHOW_DURATION = timedelta(seconds=10)
+REFRESH_RATE = timedelta(seconds=0.01)
+SLOW_INTERVAL = timedelta(seconds=0.5)
 COLOR_WHEEL = color_wheel()
 
 demo = limit(chain(
-    transition(BACKGROUND, COLOR_WHEEL, DEMO_INTERVAL),
-    run_time(scroll_right(RAINBOW), DEMO_INTERVAL),
-    run_time(scroll_left(COLOR_WHEEL), DEMO_INTERVAL)
-), STEP_INTERVAL)
+    show_duration(oscillating_pan([RED] * 12), SHOW_DURATION),
+    transition(BACKGROUND, COLOR_WHEEL, SHOW_DURATION),
+    limit(scroll_cycle(RAINBOW, SHOW_DURATION), SLOW_INTERVAL),
+    scroll_cycle(COLOR_WHEEL, SHOW_DURATION, Direction.RIGHT),
+), REFRESH_RATE)

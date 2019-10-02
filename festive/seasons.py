@@ -5,8 +5,6 @@ from enum import Enum
 from festive import tools
 from festive import patterns
 
-# from festive.colors import RED, BLACK
-
 
 class Events(Enum):
     HALLOWEEN = 1

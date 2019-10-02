@@ -3,10 +3,11 @@ from colorsys import hsv_to_rgb
 from typing import Iterable, List
 from itertools import cycle, islice
 
-from .colors import HEX, RED, YELLOW, BLUE, ORANGE, GREEN, WHITE, PURPLE, rgb_to_hex
+from .colors import HEX, RED, YELLOW, BLUE, ORANGE, GREEN, WHITE, PURPLE, BLACK, rgb_to_hex
 from .types import frame_to_pattern
 
 from config import Config
+
 
 BIG = 10
 
@@ -36,3 +37,6 @@ def color_wheel(length: int = Config.LED_COUNT) -> List[HEX]:
 
 def fill(color: HEX, length: int = Config.LED_COUNT) -> List[HEX]:
     return list(islice(cycle([color]), length))
+
+
+BACKGROUND = fill(BLACK)

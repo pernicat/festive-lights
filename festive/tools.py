@@ -1,9 +1,12 @@
 """functions for manipulating color patterns"""
+from itertools import cycle
+
 import math
 import time
 import random
 from typing import Iterable, Iterator, Generator, Callable, List
 
+from festive.colors import HEX
 from .colors import HEX, BLACK, WHITE
 
 
@@ -131,3 +134,27 @@ def twinkle(pixels, foreground=WHITE, background=BLACK, delay=0.05, iterations=1
         _iterate_pixels(pixels, iterators)
         pixels.show()
         time.sleep(delay)
+
+
+def cycle_patterns(patterns: Iterable[List[HEX]]) -> Iterable[Iterable[HEX]]:
+    for pattern in patterns:
+        yield cycle(pattern)
+
+
+def transform_to_show(transitions: List[Iterable[HEX]]) -> Iterable[List[HEX]]:
+    """
+    Takes a list of iterable pixels and turns it into a generator that returns
+    those pixels in the form of list of pixels.
+
+    Basically a matrix rotate function.
+
+    :param transitions: list of pixel generators
+    :return: generator of pixel list
+    """
+    iterables = [iter(t) for t in transitions]
+
+    while True:
+        try:
+            yield [next(i) for i in iterables]
+        except StopIteration:
+            break

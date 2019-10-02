@@ -49,7 +49,7 @@ def elapsed_fraction(duration: timedelta) -> Iterable[float]:
         yield elapsed_ / duration
 
 
-def run_time(show: Iterable[Iterable[HEX]], duration: timedelta) -> Iterable[Iterable[HEX]]:
+def show_duration(show: Iterable[Iterable[HEX]], duration: timedelta) -> Iterable[Iterable[HEX]]:
     """
     Limits the total amount of time this show should run
     

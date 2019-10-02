@@ -3,6 +3,7 @@ from datetime import timedelta
 from itertools import islice, cycle
 from typing import List, Iterable, Tuple
 
+from .tools import transform_to_show
 from .colors import RGB, HEX, hex_to_rgb, rgb_to_hex
 from .timing import elapsed_fraction
 
@@ -68,15 +69,5 @@ def timed_transition(start: List[HEX], end: List[HEX], duration: timedelta) -> L
     return [hex_timed_transition(s, e, duration) for s, e in zip(*matched)]
 
 
-def transition_to_show(transitions: List[Iterable[HEX]]) -> Iterable[Iterable[HEX]]:
-    iterables = [iter(t) for t in transitions]
-
-    while True:
-        try:
-            yield [next(i) for i in iterables]
-        except StopIteration:
-            break
-
-
 def transition(start: List[HEX], end: List[HEX], duration: timedelta) -> Iterable[Iterable[HEX]]:
-    return transition_to_show(timed_transition(start, end, duration))
+    return transform_to_show(timed_transition(start, end, duration))
