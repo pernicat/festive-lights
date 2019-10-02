@@ -4,10 +4,10 @@ from itertools import cycle, chain
 from typing import Iterable, List
 from enum import Enum
 
-from .timing import show_duration
-from .tools import cycle_patterns
-from .colors import HEX
-from .patterns import BACKGROUND
+from festive.timing import show_duration
+from festive.tools import cycle_patterns
+from festive.colors import HEX
+from festive.patterns import BACKGROUND
 
 
 class Direction(Enum):

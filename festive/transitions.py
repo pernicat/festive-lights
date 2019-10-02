@@ -6,6 +6,7 @@ from typing import List, Iterable, Tuple
 from .tools import transform_to_show
 from .colors import RGB, HEX, hex_to_rgb, rgb_to_hex
 from .timing import elapsed_fraction
+from .patterns import fill
 
 
 def transition_step(start: RGB, end: RGB, scale: float) -> RGB:
@@ -71,3 +72,16 @@ def timed_transition(start: List[HEX], end: List[HEX], duration: timedelta) -> L
 
 def transition(start: List[HEX], end: List[HEX], duration: timedelta) -> Iterable[Iterable[HEX]]:
     return transform_to_show(timed_transition(start, end, duration))
+
+
+def chain_fill_transitions(colors: List[HEX], duration: timedelta) -> Iterable[Iterable[HEX]]:
+    if len(colors) < 2:
+        raise Exception("must be at least 2 colors to chain a transition")
+
+    step_dur = duration / (len(colors)-1)
+
+    fills = [fill(c) for c in colors]
+
+    for a, b in zip(fills[:-1], fills[1:]):
+        for colors in transition(a, b, step_dur):
+            yield colors

@@ -4,10 +4,10 @@ from datetime import timedelta, datetime
 from typing import Iterator, Iterable, List
 from itertools import cycle
 
-from .timing import show_duration
-from .transitions import hex_timed_transition
-from .colors import HEX, BLACK, WHITE
-from .tools import transform_to_show
+from festive.timing import show_duration
+from festive.transitions import hex_timed_transition
+from festive.colors import HEX, BLACK, WHITE
+from festive.tools import transform_to_show
 
 from config import Config
 

@@ -3,12 +3,13 @@ from colorsys import hsv_to_rgb
 from typing import Iterable, List
 from itertools import cycle, islice
 
-from .colors import HEX, RED, YELLOW, BLUE, ORANGE, GREEN, WHITE, PURPLE, BLACK, rgb_to_hex
+from .colors import HEX, RED, YELLOW, BLUE, ORANGE, GREEN, WHITE, PURPLE, BLACK, INDIGO, rgb_to_hex
 from .types import frame_to_pattern
 
 from config import Config
 
 
+# Christmas
 BIG = 10
 
 XMAS_MULTI = [RED, YELLOW, BLUE, ORANGE, GREEN]
@@ -21,6 +22,9 @@ RAINBOW = [RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE]
 
 ICICLE = [BLUE] + [WHITE]*4
 """blue, white*4"""
+
+# Halloween
+SPOOKY1 = [ORANGE, RED, BLACK, INDIGO, GREEN] * 2
 
 
 def _color_wheel(length: int) -> Iterable[HEX]:
