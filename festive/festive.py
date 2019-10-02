@@ -1,26 +1,12 @@
-import time
-import colorsys
-from datetime import datetime, timedelta
-from itertools import islice, cycle, chain
-from typing import Union, Any, Iterable, Tuple, NewType, List
+from typing import Union, Any, Iterable
 
-from festive import seasons, colors, patterns
-from festive.types import Frame, Pattern, Show, Transition
-from festive.console_demo import ConsoleDemo
+from .colors import HEX
+from .console_demo import ConsoleDemo
 
 
-
-
-
-
-
-
-
-
-
-def runner(board: Union[ConsoleDemo, Any], frames: Show):
+def runner(board: Union[ConsoleDemo, Any], show: Iterable[Iterable[HEX]]):
     try:
-        for lights in frames:
+        for lights in show:
             for i, color in zip(range(len(board)), lights):
                 board[i] = color
             board.show()

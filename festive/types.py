@@ -5,11 +5,6 @@ from .colors import HEX
 
 from config import Config
 
-Pattern = NewType('Pattern', List[HEX])
-Frame = NewType('Frame', Iterable[HEX])
-Show = NewType('Show', Iterable[Frame])
-Transition = NewType('Transition', List[Iterable[HEX]])
 
-
-def frame_to_pattern(frame: Frame) -> Pattern:
+def frame_to_pattern(frame: Iterable[HEX]) -> List[HEX]:
     return list(islice(frame, Config.LED_COUNT))

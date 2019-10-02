@@ -1,8 +1,10 @@
-from typing import Iterable
-from itertools import islice, cycle, chain
+"""Various types of transitions from color to color"""
+from datetime import timedelta
+from itertools import islice, cycle
+from typing import List, Iterable, Tuple
 
-from .types import Transition, Pattern, Show
 from .colors import RGB, HEX, hex_to_rgb, rgb_to_hex
+from .timing import elapsed_fraction
 
 
 def transition_step(start: RGB, end: RGB, scale: float) -> RGB:
@@ -12,8 +14,12 @@ def transition_step(start: RGB, end: RGB, scale: float) -> RGB:
     return tuple(round(s + d, 3) for s, d in zip(start, deltas))
 
 
-def rgb_color_transition(start: RGB, end: RGB, length: int) -> Iterable[RGB]:
-    diff = tuple(e-s for s, e in zip(start, end))
+def _rgb_diff(start: RGB, end: RGB) -> Tuple[float, ...]:
+    return tuple(e - s for s, e in zip(start, end))
+
+
+def rgb_step_transition(start: RGB, end: RGB, length: int) -> Iterable[RGB]:
+    diff = _rgb_diff(start, end)
 
     # how much each channel needs to change for each step of the transition
     deltas = tuple(d / length for d in diff)
@@ -22,26 +28,47 @@ def rgb_color_transition(start: RGB, end: RGB, length: int) -> Iterable[RGB]:
         yield tuple(round(s + d*i, 3) for s, d in zip(start, deltas))
 
 
-def hex_color_transition(start: HEX, end: HEX, length: int) -> Iterable[HEX]:
-    for rgb in rgb_color_transition(
+def rgb_timed_transition(start: RGB, end: RGB, duration: timedelta) -> Iterable[RGB]:
+    diff = _rgb_diff(start, end)
+
+    for frac in elapsed_fraction(duration):
+        yield tuple(round(s + d*frac, 3) for s, d in zip(start, diff))
+
+
+def hex_step_transition(start: HEX, end: HEX, length: int) -> Iterable[HEX]:
+    for rgb in rgb_step_transition(
             hex_to_rgb(start), hex_to_rgb(end), length):
         yield rgb_to_hex(rgb)
 
 
-def transition(start: Pattern, end: Pattern, length: int) -> Transition:
-    lengths = (len(start), len(end))
+def hex_timed_transition(start: HEX, end: HEX, duration: timedelta) -> Iterable[HEX]:
+    for rgb in rgb_timed_transition(
+            hex_to_rgb(start), hex_to_rgb(end), duration):
+        yield rgb_to_hex(rgb)
+
+
+def _match_lengths(*items: List[HEX]) -> Tuple[Iterable[HEX], ...]:
+    lengths = tuple(len(i) for i in items)
     if 0 in lengths:
-        raise Exception("Can't transition pattern with length of 0 start: {}, end: {}".format(*lengths))
-    pattern_length = max(lengths)
+        raise Exception("Can't transition pattern with length of 0")
+    max_length = max(lengths)
 
-    # duplicates the short list so it is the same length as the longer list
-    start = list(islice(cycle(start), pattern_length))
-    end = list(islice(cycle(end), pattern_length))
-
-    return [hex_color_transition(s, e, length) for s, e in zip(start, end)]
+    return tuple(islice(cycle(i), max_length) for i in items)
 
 
-def transition_to_show(transitions: Transition) -> Show:
+def step_transition(start: List[HEX], end: List[HEX], length: int) -> List[Iterable[HEX]]:
+    matched = _match_lengths(start, end)
+
+    return [hex_step_transition(s, e, length) for s, e in zip(*matched)]
+
+
+def timed_transition(start: List[HEX], end: List[HEX], duration: timedelta) -> List[Iterable[HEX]]:
+    matched = _match_lengths(start, end)
+
+    return [hex_timed_transition(s, e, duration) for s, e in zip(*matched)]
+
+
+def transition_to_show(transitions: List[Iterable[HEX]]) -> Iterable[Iterable[HEX]]:
     iterables = [iter(t) for t in transitions]
 
     while True:
@@ -49,3 +76,7 @@ def transition_to_show(transitions: Transition) -> Show:
             yield [next(i) for i in iterables]
         except StopIteration:
             break
+
+
+def transition(start: List[HEX], end: List[HEX], duration: timedelta) -> Iterable[Iterable[HEX]]:
+    return transition_to_show(timed_transition(start, end, duration))

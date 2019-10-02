@@ -1,11 +1,11 @@
-from festive.transitions import rgb_color_transition
+from festive.transitions import rgb_step_transition
 
 
 def test_rgb_color_transition():
     start = (0.0, 0.0, 0.0)
     end = (1.0, 1.0, 1.0)
 
-    result = [c for c in rgb_color_transition(start, end, 10)]
+    result = [c for c in rgb_step_transition(start, end, 10)]
 
     assert len(result) == 10
 
