@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Runs a demo of the LEDs on the command line"""
 
-from festive.festive import demo, runner
+from festive.festive import runner
+from festive.demo import demo
 from festive.console_demo import ConsoleDemo
 
 from config import Config
