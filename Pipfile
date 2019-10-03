@@ -8,10 +8,10 @@ pylint = "*"
 pytest = "*"
 
 [packages]
-rpi-ws281x = "*"
-adafruit-circuitpython-neopixel = "*"
-adafruit-blinka = "*"
-python-dotenv = "*"
+rpi-ws281x = "~4.1.0"
+adafruit-circuitpython-neopixel = "~3.3.4"
+adafruit-blinka = "~0.4.0"
+python-dotenv = "~0.10.1"
 
 [requires]
 python_version = "3.5"
