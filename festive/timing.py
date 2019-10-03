@@ -17,7 +17,10 @@ def limit(frames: Iterable[Iterable[HEX]], interval: timedelta) -> Iterable[Iter
         stop = datetime.now() + interval
         yield item
         sleep_delta = stop - datetime.now()
-        time.sleep(sleep_delta.total_seconds())
+        total_seconds = sleep_delta.total_seconds()
+        if total_seconds <= 0:
+            continue
+        time.sleep(total_seconds)
 
 
 def until(frames: Iterable[Iterable[HEX]], datetime_: datetime) -> Iterable[Iterable[HEX]]:
