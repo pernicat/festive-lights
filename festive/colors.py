@@ -21,6 +21,9 @@ ORANGE = HEX(255, 127, 0)
 PURPLE = HEX(127, 0, 127)
 
 INDIGO = HEX(68, 0, 255)
+PINK = HEX(255, 68, 68)
+
+SKY_BLUE = HEX(68, 68, 255)
 
 
 def hex_to_rgb(hex_: HEX) -> RGB:

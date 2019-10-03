@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """runs the neopixels"""
 
-import os
 import board
 import neopixel
-from festive import seasons
+from festive.festive import runner
+from festive.demo import demo
 
 from config import Config
 
@@ -13,8 +13,7 @@ def main():
     """runs the neopixels"""
     pixels = neopixel.NeoPixel(board.D18, Config.LED_COUNT, auto_write=False)
 
-    while True:
-        seasons.christmas(pixels)
+    runner(pixels, demo)
 
 
 if __name__ == "__main__":

@@ -35,7 +35,6 @@ def calculate_adjustment_args_length() -> int:
     filter_overlap = len(COLORS) * (ADJUSTMENT_RANGE - 1)
 
     # maths!
-    # return total - filtered_bg - filtered_solids + filter_overlap
     return total - filtered_bg - filtered_solids + filter_overlap
 
 

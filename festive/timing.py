@@ -20,6 +20,14 @@ def limit(frames: Iterable[Iterable[HEX]], interval: timedelta) -> Iterable[Iter
         time.sleep(sleep_delta.total_seconds())
 
 
+def until(frames: Iterable[Iterable[HEX]], datetime_: datetime) -> Iterable[Iterable[HEX]]:
+    for frame in frames:
+        if datetime.now() > datetime_:
+            break
+
+        yield frame
+
+
 def elapsed(duration: timedelta) -> Iterable[timedelta]:
     """
     Generates a list of time intervals since the generator was started

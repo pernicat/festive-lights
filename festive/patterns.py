@@ -25,11 +25,9 @@ RAINBOW = [RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE]
 ICICLE = [BLUE] + [WHITE]*4
 """blue, white*4"""
 
-# Halloween
 SPOOKY_THEME = [ORANGE, INDIGO]
-SPOOKY1 = [ORANGE, INDIGO]
-SPOOKY2 = [ORANGE, ORANGE]
-SPOOKY3 = [INDIGO, INDIGO]
+
+FREEDOM_THEME = [RED, WHITE, BLUE]
 
 
 def color_combos(colors: List[HEX]) -> List[List[HEX]]:

@@ -6,7 +6,7 @@ from festive.timing import limit, show_duration
 from festive.transitions import transition, chain_fill_transitions
 from festive.effects import scroll, Direction, oscillating_pan
 
-from festive.patterns import SPOOKY1, SPOOKY2, spacing, widen
+from festive.patterns import SPOOKY_THEME, spacing, widen
 from festive.colors import RED, HEX
 
 SCROLL_INTERVAL = timedelta(seconds=0.3)
@@ -30,8 +30,8 @@ def halloween(scene_duration: timedelta):
         return limit(scroll(colors, scene_duration), SCROLL_INTERVAL)
 
     return chain(
-        limit_scroll(spacing(SPOOKY2, 4)),
-        limit_scroll(widen(SPOOKY2, 8)),
-        limit_scroll(SPOOKY2),
-        chain_fill_transitions(SPOOKY1, scene_duration),
+        limit_scroll(spacing(SPOOKY_THEME, 4)),
+        limit_scroll(widen(SPOOKY_THEME, 8)),
+        limit_scroll(SPOOKY_THEME),
+        chain_fill_transitions(SPOOKY_THEME, scene_duration),
     )

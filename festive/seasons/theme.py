@@ -9,9 +9,11 @@ from festive.patterns import color_combos, adjustment
 from festive.timing import limit
 
 ADJUSTMENT_RANGE = 6
+REFRESH_MIN = 0.1
+REFRESH_MAX = 0.7
 
 
-class Theme(Iterable):
+class Theme(Iterable[Iterator[HEX]]):
 
     def __init__(self, colors: List[HEX], duration: timedelta, background: HEX = BLACK):
         self.duration = duration
@@ -43,6 +45,10 @@ class Theme(Iterable):
 
     @property
     def adjustment_args(self) -> List[Tuple[List[HEX], int, int, HEX]]:
+        """
+        A list or arguments for generating a pattern
+        :return:
+        """
         if not self._adjustment_options:
             args_product = product(
                 self.color_combos,

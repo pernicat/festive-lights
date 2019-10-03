@@ -1,9 +1,17 @@
 """seasonal functions"""
-from datetime import date
+from datetime import date, timedelta, time, datetime
 from enum import Enum
+from typing import Iterator, Iterable
 
 from festive import tools
 from festive import patterns
+from festive.timing import until
+from festive.seasons.theme import Theme
+from festive.colors import (
+    HEX, RED, YELLOW, BLUE, ORANGE, GREEN, WHITE, PURPLE, INDIGO, PINK, SKY_BLUE)
+
+
+DURATION = timedelta(seconds=30)
 
 
 class Events(Enum):
@@ -12,7 +20,6 @@ class Events(Enum):
     VALENTINES = 3
     SAINT_PATRICK = 4
     EASTER = 5
-    # MEMORIAL_DAY = auto()
     INDEPENDENCE_DAY = 7
 
     SPRING = 10
@@ -21,7 +28,22 @@ class Events(Enum):
     WINTER = 13
 
 
-def get_event_for_date(date_: date) -> Events:
+EVENT_COLORS = {
+    Events.HALLOWEEN: [ORANGE, INDIGO],
+    Events.CHRISTMAS: [RED, GREEN, BLUE, YELLOW, WHITE],
+    Events.VALENTINES: [RED, PINK],
+    Events.SAINT_PATRICK: [GREEN, YELLOW],
+    Events.EASTER: [YELLOW, GREEN, PURPLE, WHITE],
+    Events.INDEPENDENCE_DAY: [RED, WHITE, BLUE],
+
+    Events.SPRING: [PINK, YELLOW, GREEN, WHITE],
+    Events.SUMMER: [ORANGE, WHITE, SKY_BLUE],
+    Events.FALL: [RED, ORANGE, YELLOW],
+    Events.WINTER: [BLUE, WHITE],
+}
+
+
+def event_for_date(date_: date) -> Events:
     if date_.month == 10:
         return Events.HALLOWEEN
 
@@ -57,6 +79,23 @@ def get_event_for_date(date_: date) -> Events:
         return Events.WINTER
 
     raise Exception("could not find event for '{}'".format(date_.isoformat()))
+
+
+def theme_for_date(date_: date) -> Theme:
+    event = event_for_date(date_)
+    colors = EVENT_COLORS[event]
+    return Theme(colors=colors, duration=DURATION)
+
+
+def run() -> Iterable[Iterable[HEX]]:
+    while True:
+        date_ = date.today()
+        tomorrow = datetime.combine(date_, time(0, 0)) + timedelta(days=1)
+
+        theme = theme_for_date(date_)
+
+        for frame in until(theme, tomorrow):
+            yield frame
 
 
 def test(pixels):
