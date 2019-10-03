@@ -1,4 +1,5 @@
 """tools for doing effects on the lights"""
+import random
 from datetime import timedelta
 from itertools import cycle, chain
 from typing import Iterable, List
@@ -13,6 +14,10 @@ from festive.patterns import BACKGROUND
 class Direction(Enum):
     LEFT = 1
     RIGHT = -1
+
+    @classmethod
+    def random(cls):
+        return random.choice(list(cls.__members__.values()))
 
 
 def rotate_pattern(pattern: List[HEX], direction: Direction = Direction.LEFT) -> Iterable[List[HEX]]:
