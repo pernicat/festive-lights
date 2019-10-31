@@ -10,7 +10,7 @@ from .colors import RED
 from .seasons import halloween, Theme, run
 
 SCENE_DURATION = timedelta(seconds=10)
-REFRESH_RATE = timedelta(seconds=0.02)
+REFRESH_RATE = timedelta(seconds=0.05)
 SLOW_INTERVAL = timedelta(seconds=0.5)
 COLOR_WHEEL = color_wheel()
 
